@@ -1,0 +1,3 @@
+[submodule "libs/CImg"]
+	path = libs/CImg
+	url = https://github.com/GreycLab/CImg
