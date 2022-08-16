@@ -2,6 +2,7 @@
 #include "starlist.h"
 #include "startransform.h"
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 using namespace cimg_library; //! Retrieve a list of the brightest stars
@@ -104,15 +105,19 @@ void test1() {
         displayList(colorImg, pointList);
     }
 
-    auto matches = getGetMatchingStars(imgs.at(0), imgs.at(1));
-    displayMatches(colorImg, matches);
+    auto displayTransform = glm::identity<glm::mat4>();
 
-    matches.pop_back();
+    for (size_t i = 1; i < imgs.size(); ++i) {
+        auto matches = getGetMatchingStars(imgs.at(i - 1), imgs.at(i));
+        displayMatches(colorImg, matches);
 
-    auto transform = findTransform(
-        matches, {imgs.at(0).width() / 2, imgs.at(0).height() / 2});
+        auto transform = findTransform(
+            matches, {imgs.at(i).width() / 2, imgs.at(i).height() / 2});
 
-    drawMatrix(colorImg, transform);
+        displayTransform *= transform;
+
+        drawMatrix(colorImg, displayTransform);
+    }
 
     display(imgs.at(1), colorImg);
 }

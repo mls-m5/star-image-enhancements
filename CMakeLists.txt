@@ -9,6 +9,7 @@ add_executable(
     star-stuff
     src/main.cpp
     src/starlist.cpp
+    src/startransform.cpp
     )
 
 target_compile_features(
