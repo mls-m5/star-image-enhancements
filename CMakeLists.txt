@@ -8,6 +8,7 @@ find_package(X11 REQUIRED)
 add_executable(
     star-stuff
     src/main.cpp
+    src/starlist.cpp
     )
 
 target_compile_features(
@@ -32,7 +33,7 @@ target_include_directories(
 target_precompile_headers(
     star-stuff
     PRIVATE
-    libs/CImg/CImg.h
+    src/common.h
     )
 
 
