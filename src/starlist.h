@@ -1,15 +1,7 @@
 #pragma once
 
 #include "common.h"
-#include <glm/vec2.hpp>
-#include <vector>
-
-using Coord = glm::dvec2;
-
-struct StarMatch {
-    Coord p1;
-    Coord p2;
-};
+#include "starmatch.h"
 
 // Get the brightest pixels on a image
 std::vector<Coord> getBrightest(const ImgT &img, int num = 10);
