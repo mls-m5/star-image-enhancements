@@ -1,5 +1,6 @@
 
 #include "starlist.h"
+#include <glm/geometric.hpp>
 
 Coord getMax(const ImgT &img) {
     int maxX = -1, maxY = -1, maxValue = 0;
@@ -33,9 +34,7 @@ std::vector<Coord> getBrightest(const ImgT &image, int num) {
 
         pointList.push_back(coord);
 
-        auto [x, y] = coord;
-
-        img.draw_circle(x, y, 20, &black);
+        img.draw_circle(coord.x, coord.y, 20, &black);
     }
 
     return pointList;
@@ -46,11 +45,9 @@ void displayList(ImgT &img, const std::vector<Coord> &coords) {
 
     int i = 0;
     for (auto c : coords) {
-        auto [x, y] = c;
-
         //        img.draw_arrow(x - 10, y - 10, x - 4, y - 4, tc.data(), 1, 30,
         //        4);
-        img.draw_text(x, y + 10, std::to_string(i).c_str(), tc.data());
+        img.draw_text(c.x, c.y + 10, std::to_string(i).c_str(), tc.data());
 
         ++i;
     }
@@ -62,10 +59,10 @@ std::vector<StarMatch> matchLists(const std::vector<Coord> &c1,
     auto l2 = c2;
     auto result = std::vector<StarMatch>{};
     for (auto c : c1) {
-        auto dist = maxDist;
+        auto dist = static_cast<double>(maxDist);
         int bestMatch = -1;
         for (size_t i = 0; i < l2.size(); ++i) {
-            auto d = c.dist(l2.at(i));
+            auto d = glm::length(c - l2.at(i));
             if (d < dist) {
                 dist = d;
                 bestMatch = i;

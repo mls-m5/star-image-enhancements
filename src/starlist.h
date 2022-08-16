@@ -1,19 +1,10 @@
 #pragma once
 
 #include "common.h"
+#include <glm/vec2.hpp>
 #include <vector>
 
-// TODO: make coordinates double, and interpolate between pixels
-struct Coord {
-    int x = 0;
-    int y = 0;
-
-    double dist(Coord other) {
-        auto dx = x - other.x;
-        auto dy = y - other.y;
-        return std::sqrt(dx * dx + dy * dy);
-    }
-};
+using Coord = glm::dvec2;
 
 struct StarMatch {
     Coord p1;
